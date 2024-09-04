@@ -1,13 +1,13 @@
 # Gmail Forwarder Script
 
-This Google Apps Script automatically forwards starred emails from your Gmail inbox to a specified email address. The script checks for emails marked as starred that have not yet been forwarded, then forwards them with their attachments and adds a "Forwarded" label to mark them as processed. The forwarded emails include original metadata such as sender, date, subject, and recipients (To, Cc, Bcc).
+This Google Apps Script automatically forwards starred emails from your Gmail inbox to a specified email address. The script checks for emails marked as starred that have not yet been forwarded, then forwards them with their attachments and adds the configured label to mark them as processed. The forwarded emails include original metadata such as sender, date, subject, and recipients (To, Cc, Bcc).
 
 ## Features
 
-- Automatically forwards all starred emails that do not have the "Forwarded" label.
+- Automatically forwards all starred emails that do not have the configured label.
 - Includes original metadata such as sender, date, subject, and recipients in the forwarded message.
 - Forwards any attachments from the original email.
-- Adds a "Forwarded" label to processed threads to avoid duplicate forwards.
+- Adds the configured label to the processed email threads to avoid duplicate forwards.
 - Recipient email address via Google Apps Script properties.
 
 ## Prerequisites
@@ -25,19 +25,25 @@ To use this script, you need:
    - Create a new project.
    - Copy the script provided in this repository into the project editor.
 
-2. **Set the Recipient Email:**
-   - You need to set the recipient email to which the starred emails will be forwarded.
+2. **Prerequisites:**
+   - You need to set the script properties.
    - Go to `File -> Project Properties -> Script Properties`.
    - Add a new property with the key as `RECIPIENT_EMAIL` and the value as the email address where you want to forward the messages.
+   - Add a new property with the key as `FORWARDING_STATUS_LABEL` and the value the label name. This label will be used to track emails which are already forwarded by the script
+   - Add a new (optional) property `SUBJECT_PREFIX` to prefix the email subject.
 
-3. **Label Setup:**
-   - The script will automatically add a "Forwarded" label to threads that have been forwarded. You do not need to create this label manually; the script will handle it.
-
-4. **Authorize the Script:**
+3. **Authorize the Script:**
    - When you first run the script, Google will ask for permission to access your Gmail account. Accept the permissions to allow the script to function.
 
-5. **Run the Script:**
-   - Manually trigger the `forwardStarredEmails` function from the Google Apps Script editor, or set up a trigger to run the script periodically (e.g., every day).
+4. **Run the Script:**
+   - Set up a trigger to run the script periodically (e.g., every day) or manually trigger the script.
+   - Steps to add a trigger
+      - To manually create an installable trigger in the script editor, follow these steps:
+      - Open your Apps Script project.
+      - At the left, click Triggers alarm.
+      - At the bottom right, click Add Trigger.
+      - Select and configure the type of trigger you want to create.
+      - Click Save.
 
 ## Usage
 
