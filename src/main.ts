@@ -14,7 +14,6 @@ function forwardStarredEmails() {
       if (message.isStarred() && !message.isInTrash()) {
 
         // Construct the forwarded message header with HTML line breaks
-        Logger.log({ message: message.getFrom()});
         const forwardedHeader = constructForwardedHeader(message);
 
         const emailOptions = {
@@ -27,10 +26,10 @@ function forwardStarredEmails() {
         const originalSubject = message.getSubject();
         const subject = prefix ? `${prefix} ${originalSubject}` : originalSubject;
 
-        Logger.log({ message: `Sending email with subject ${subject}`});
+        Logger.log({ message: `Sending email with from ${message.getFrom()} and subject ${subject}`});
         GmailApp.sendEmail(recipientEmail, subject, "", emailOptions);
 
-        // Add the "Forwarded" label to the thread after processing
+        // Add the label to the thread after processing
         thread.addLabel(forwardingStatusLabel);
         messageCounter++;
       }
