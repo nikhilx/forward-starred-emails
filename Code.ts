@@ -1,8 +1,15 @@
 function forwardStarredEmails() {
   var label = GmailApp.getUserLabelByName("Forwarded");
+
+  // Create the label if it doesn't exist
+   if (!label) {
+    label = GmailApp.createLabel("Forwarded");
+  }
+
   var threads = GmailApp.search("is:starred -label:Forwarded");
   let threadCounter = 0;
   let messageCounter = 0;
+
   threads.forEach(function(thread) {
     var messages = thread.getMessages();
     messages.forEach(function(message) {
